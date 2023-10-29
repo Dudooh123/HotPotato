@@ -11,7 +11,7 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\nukennin07\OneDrive\Área de Trabalho\interface atualizada\build\assets\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\nukennin07\OneDrive\Documentos\GitHub\HotPotato\interface atualizada\build\assets\frame0")
 
 
 def relative_to_assets(path: str) -> Path:
@@ -123,25 +123,49 @@ canvas.create_text(
     font=("RobotoRoman Bold", 32 * -1)
 )
 
-entry_image_3 = PhotoImage(
-    file=relative_to_assets("entry_3.png"))
-entry_bg_3 = canvas.create_image(
-    339.0,
-    402.5,
-    image=entry_image_3
+canvas.create_rectangle(
+    52.0,
+    144.0,
+    626.0,
+    661.0,
+    fill="#E11923",
+    outline="")
+
+canvas.create_rectangle(
+    52.0,
+    144.0,
+    626.0,
+    661.0,
+    fill="#E11923",
+    outline=""
 )
-entry_3 = Text(
+
+# Create a Text widget to display prints
+output_text = Text(
+    window,
     bd=0,
     bg="#E11923",
     fg="#000716",
-    highlightthickness=0
+    highlightthickness=0,
+    font=("RobotoRoman Bold", 18),  # Adjust font and size as needed
 )
-entry_3.place(
+output_text.place(
     x=52.0,
     y=144.0,
-    width=574.0,
-    height=515.0
+    width=574.0,  # Adjust width and height as needed
+    height=517.0,
 )
+output_text.config(state="disabled")  # Make the Text widget read-only
+
+def custom_print(*args):
+    output_text.config(state="normal")  # Allow editing the Text widget
+    text_to_insert = " ".join(map(str, args))  # Convert all arguments to a single string
+    output_text.insert("end", text_to_insert + "\n")  # Add text with a newline
+    output_text.config(state="disabled")  # Make the Text widget read-only
+    output_text.see("end")  # Scroll to the end to show the latest output
+
+# Redirect the print function to custom_print
+print = custom_print
 
 canvas.create_text(
     433.0,
